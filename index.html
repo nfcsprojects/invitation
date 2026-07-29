@@ -83,7 +83,7 @@
             line-height: 1.7;
             font-weight: 300;
             overflow-x: hidden;
-            padding-bottom: calc(var(--nav-height));
+            /* padding-bottom: calc(var(--nav-height)); */
         }
 
         img {
@@ -1144,13 +1144,59 @@
             margin: 0 auto;
         }
 
-        .gift-card {
-            background: var(--primary);
+        .gift-card-1 {
+            /* background: var(--primary); */
+            background: url('https://ik.imagekit.io/uaztkqlnz/Wedding/card-nfcs.jpg') center / cover no-repeat;
             border-radius: var(--radius);
             padding: 36px 28px;
             text-align: center;
             border: 1px solid var(--secondary);
             transition: var(--transition);
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gift-card-1 .copy-btn {
+            margin-top: auto;
+            align-self: center;
+            border: 1px solid var(--secondary);
+            background: transparent;
+            color: var(--secondary);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: .3s;
+        }
+
+        .gift-card-2 {
+            background: url('https://ik.imagekit.io/uaztkqlnz/Wedding/card-as.jpg') center / cover no-repeat;
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            text-align: center;
+            border: 1px solid var(--secondary);
+            transition: var(--transition);
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gift-card-2 .copy-btn {
+            margin-top: auto;
+            align-self: center;
+            border: 1px solid var(--secondary);
+            background: transparent;
+            color: var(--secondary);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: .3s;
         }
 
         .gift-card:hover {
@@ -1196,6 +1242,11 @@
             cursor: pointer;
             transition: var(--transition);
             font-family: var(--font-body);
+
+            /* KUNCI: Mendorong tombol ke posisi paling bawah */
+            margin-top: auto;
+            align-self: center;
+            /* Tetap di tengah secara horizontal */
         }
 
         .btn-copy:hover {
@@ -2121,8 +2172,8 @@
             <section class="map-section" id="location">
                 <div class="container text-center">
                     <!-- <div class="section-title animate-on-scroll"> -->
-                        <span class="section-label reveal">Location</span>
-                        <h2 class="section-title reveal delay-1">Peta Lokasi</h2>
+                    <span class="section-label reveal">Location</span>
+                    <h2 class="section-title reveal delay-1">Peta Lokasi</h2>
                     <!-- </div> -->
                     <div class="map-container animate-on-scroll delay-1"><iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.343700289663!2d112.61920607754912!3d-7.9633876588706265!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd6282b6f0d0a61%3A0x474046e3ce87264a!2sBadan%20Koordinasi%20Wilayah%20Pemerintahan%20dan%20Pembangunan%20Jawa%20Timur%20III%20(%20BAKORWIL%20III%20)%20Malang!5e0!3m2!1sen!2sid!4v1782314445448!5m2!1sen!2sid"
@@ -2176,13 +2227,23 @@
                     <p class="section-subtitle reveal delay-2">Tanpa mengurangi rasa hormat, bagi Bapak/Ibu/Saudara/i
                         yang
                         ingin memberikan tanda kasih, dapat melalui:</p>
-
-                    <div class="gift-cards">
-                        <div class="gift-card reveal delay-2">
-                            <p class="gift-bank">Bank BCA</p>
+                    <button class="btn-maps" id="giftToggleBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                            <rect x="2" y="7" width="20" height="5"></rect>
+                            <line x1="12" y1="22" x2="12" y2="7"></line>
+                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                        </svg>
+                        Kirim Hadiah
+                    </button>
+                    <div class="gift-cards" style="display: none;" id="gift-cards">
+                        <div class="gift-card-1 reveal delay-2">
+                            <!-- <p class="gift-bank">Bank Mandiri</p>
                             <p class="gift-number">1234567890</p>
-                            <p class="gift-name">a.n. Ni`mah Firsta Cahya Susilo, M.Kom</p>
-                            <button class="btn-copy" onclick="copyToClipboard('1234567890', this)">
+                            <p class="gift-name">a.n. Ni`mah Firsta Cahya Susilo</p> -->
+                            <button class="btn-copy" onclick="copyToClipboard('1440017665719', this)">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
@@ -2191,10 +2252,10 @@
                                 Salin Nomor
                             </button>
                         </div>
-                        <div class="gift-card reveal delay-3">
-                            <p class="gift-bank">Bank Mandiri</p>
+                        <div class="gift-card-2 reveal delay-3">
+                            <!-- <p class="gift-bank">Bank BCA</p>
                             <p class="gift-number">0987654321</p>
-                            <p class="gift-name">a.n. Anang Syaifulloh, S.Ars</p>
+                            <p class="gift-name">a.n. Anang Syaifulloh</p> -->
                             <button class="btn-copy" onclick="copyToClipboard('0987654321', this)">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
@@ -2784,6 +2845,67 @@
 
         // Jalankan saat halaman dimuat
         document.addEventListener('DOMContentLoaded', generateGCalLink);
+
+        // SCRIPT TOOGLE WEDDING GIFTS
+        // Toggle gift details visibility
+        document.getElementById('giftToggleBtn').addEventListener('click', function () {
+            const giftDetails = document.getElementById('gift-cards');
+            const btn = this;
+
+            if (giftDetails.style.display === 'none') {
+                giftDetails.style.display = 'block';
+                btn.textContent = 'Tutup';
+            } else {
+                giftDetails.style.display = 'none';
+                btn.textContent = 'Kirim Hadiah';
+            }
+        });
+
+        // Copy to clipboard function
+        function copyToClipboard(elementId, btnElement) {
+            const text = document.getElementById(elementId).textContent;
+
+            navigator.clipboard.writeText(text).then(function () {
+                // Change button appearance temporarily
+                const originalHTML = btnElement.innerHTML;
+                btnElement.classList.add('copied');
+                btnElement.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span class="copy-text">Copied!</span>
+    `;
+
+                // Reset after 2 seconds
+                setTimeout(function () {
+                    btnElement.classList.remove('copied');
+                    btnElement.innerHTML = originalHTML;
+                }, 2000);
+            }).catch(function (err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+
+                // Show copied state
+                const originalHTML = btnElement.innerHTML;
+                btnElement.classList.add('copied');
+                btnElement.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <span class="copy-text">Copied!</span>
+    `;
+
+                setTimeout(function () {
+                    btnElement.classList.remove('copied');
+                    btnElement.innerHTML = originalHTML;
+                }, 2000);
+            });
+        }
     </script>
 
     <!-- ============================================
