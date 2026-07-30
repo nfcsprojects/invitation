@@ -2411,7 +2411,7 @@
            GOOGLE SHEETS CONFIGURATION
            GANTI URL DI BAWAH INI DENGAN URL WEB APP ANDA
         ============================================ */
-        const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwKxj-DiXlp-aFDfXvD-5UvEpOUVZ1ArBNkWN6l_cwEJ1bVPAIQkQpChvUVJUaStCRZnA/exec';
+        const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwrL7Ya3OvWGNgXVemSM1IvRAjBiPZVlia0W1pTlAoOmdKOHjc8wwVgRMEQwCGVxHhv/exec';
 
         // Ganti dengan URL Google Sheet Anda setelah deploy
         // Contoh: 'https://script.google.com/macros/s/AKfycbx.../exec'
@@ -2649,22 +2649,28 @@
             submitText.style.display = 'none';
             submitLoading.style.display = 'inline';
 
-            const formData = {
-                action: 'submit',
-                name: name,
-                attend: attend,
-                message: message,
-                timestamp: new Date().toISOString()
-            };
+            const formData = new FormData();
+
+            formData.append("name", name);
+            formData.append("attend", attend);
+            formData.append("message", message);
 
             try {
                 // Kirim ke Google Sheets
+                // await fetch(GOOGLE_SHEET_URL, {
+                //     method: 'POST',
+                //     mode: 'no-cors', // Wajib untuk POST ke Apps Script
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify(formData)
+                // });
+                console.log(formData);
                 await fetch(GOOGLE_SHEET_URL, {
-                    method: 'POST',
-                    mode: 'no-cors', // Wajib untuk POST ke Apps Script
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
+                    method: "POST",
+                    mode: "no-cors",
+                    body: formData
                 });
+
+                console.log(await response.text());
 
                 // Simpan ke localStorage sebagai backup & instant display
                 saveToLocalStorage(formData);
