@@ -2734,6 +2734,7 @@
                 // Pastikan data memiliki struktur yang benar DAN tidak kosong
                 if (data.success && Array.isArray(data.wishes) && data.wishes.length > 0) {
                     displayWishes(data.wishes);
+                    console.log(wishes);
 
                     // Sinkronkan localStorage dengan data terbaru dari Sheet
                     localStorage.setItem('weddingWishes', JSON.stringify(data.wishes));
@@ -2774,18 +2775,30 @@
         // Display wishes
         function displayWishes(wishes) {
             const wishesList = document.getElementById('wishesList');
-            wishesList.innerHTML = wishes.map(wish => `
+
+            wishesList.innerHTML = wishes.map(wish => {
+
+                const name = wish.name || "Anonymous";
+
+                return `
         <div class="wish-card">
             <div class="wish-header">
-                <div class="wish-avatar">${escapeHtml(wish.name.charAt(0).toUpperCase())}</div>
+                <div class="wish-avatar">
+                    ${escapeHtml(name.charAt(0).toUpperCase())}
+                </div>
+
                 <div>
-                    <p class="wish-name">${escapeHtml(wish.name)}</p>
-                    <p class="wish-time">${wish.time || 'Baru saja'}</p>
+                    <p class="wish-name">${escapeHtml(name)}</p>
+                    <p class="wish-time">${wish.time || "Baru saja"}</p>
                 </div>
             </div>
-            <p class="wish-message">${escapeHtml(wish.message)}</p>
+
+            <p class="wish-message">
+                ${escapeHtml(wish.message || "")}
+            </p>
         </div>
-    `).join('');
+        `;
+            }).join("");
         }
 
         function escapeHtml(text) {
