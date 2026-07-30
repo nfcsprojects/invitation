@@ -13,22 +13,11 @@
     <meta property="og:image:type" content="image/jpeg" />
     <meta name="author" content="nfcs.entertainment@gmail.com" />
 
-    <!-- Preload font body (Poppins) karena digunakan di seluruh halaman -->
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-        href="https://fonts.gstatic.com/s/poppins/v21/pxiEyp8kv8JHgFVrJJfecnFHGPc.woff2">
-
-    <!-- Preload font script (Great Vibes) karena digunakan di nama mempelai -->
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-        href="https://fonts.gstatic.com/s/greatvibes/v18/RWmMoKWR9v4ksMfaWd_JN2Cp.woff2">
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap"
-        rel="stylesheet"> -->
 
-    <!-- Perhatikan: Poppins sudah ditambahkan di sini -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Marcellus&family=Poppins:wght@300;400;500;600&display=swap"
         rel="stylesheet">
@@ -1146,7 +1135,7 @@
 
         .gift-card-1 {
             /* background: var(--primary); */
-            background: url('C:\\Users\\HP\\Downloads\\card-mandiri.jpg') center / cover no-repeat;
+            background: url('https://ik.imagekit.io/uaztkqlnz/Wedding/card-mandiri.jpg') center / cover no-repeat;
             border-radius: var(--radius);
             padding: 36px 28px;
             text-align: center;
@@ -1173,7 +1162,7 @@
         }
 
         .gift-card-2 {
-            background: url('C:\\Users\\HP\\Downloads\\card-bca.jpg') center / cover no-repeat;
+            background: url('https://ik.imagekit.io/uaztkqlnz/Wedding/card-bca.jpg') center / cover no-repeat;
             border-radius: var(--radius);
             padding: 36px 28px;
             text-align: center;
@@ -2290,7 +2279,6 @@
                                 <option value="">Pilih jumlah hadir</option>
                                 <option value="1">1 Orang</option>
                                 <option value="2">2 Orang</option>
-                                <option value="3">3 Orang</option>
                                 <option value="0">Tidak Dapat Hadir</option>
                             </select>
                         </div>
@@ -2471,26 +2459,28 @@
            MUSIC PLAYER
         ============================================ */
         const bgMusic = document.getElementById('bgMusic');
-        let isPlaying = false;
 
         function toggleMusic() {
-            if (isPlaying) {
-                bgMusic.pause();
-                isPlaying = false;
-                document.getElementById('musicBtn').classList.remove('playing');
+            if (bgMusic.paused) {
+                bgMusic.play()
+                    .then(() => {
+                        document.getElementById('musicBtn').classList.add('playing');
+                        updateMusicIcon(true);
+                    })
+                    .catch(err => {
+                        console.error('Gagal memutar audio:', err);
+                    });
             } else {
-                bgMusic.play();
-                isPlaying = true;
-                document.getElementById('musicBtn').classList.add('playing');
+                bgMusic.pause();
+                document.getElementById('musicBtn').classList.remove('playing');
+                updateMusicIcon(false);
             }
-            updateMusicIcon(isPlaying);
         }
 
         function updateMusicIcon(playing) {
             document.getElementById('musicIconPlay').style.display = playing ? 'none' : 'block';
             document.getElementById('musicIconPause').style.display = playing ? 'block' : 'none';
         }
-
         /* ============================================
            BOTTOM NAVIGATION
         ============================================ */
@@ -2715,42 +2705,45 @@
 
         // Load wishes from Google Sheets WITH CACHE BUSTING
         async function loadWishesFromSheet() {
-            const wishesList = document.getElementById('wishesList');
 
-            // Tambahkan timestamp unik agar browser tidak mengambil data dari cache
-            const cacheBuster = new Date().getTime();
+            const cacheBuster = Date.now();
 
             try {
-                const response = await fetch(`${GOOGLE_SHEET_URL}?action=get&cb=${cacheBuster}`);
 
-                // Validasi apakah response benar-benar JSON
-                const contentType = response.headers.get("content-type");
-                if (!contentType || !contentType.includes("application/json")) {
-                    throw new Error("Response bukan JSON valid");
-                }
+                const response = await fetch(`${GOOGLE_SHEET_URL}?cb=${cacheBuster}`);
 
                 const data = await response.json();
 
-                // Pastikan data memiliki struktur yang benar DAN tidak kosong
-                if (data.success && Array.isArray(data.wishes) && data.wishes.length > 0) {
-                    displayWishes(data.wishes);
-                    console.log(wishes);
+                console.log("Response:", data);
 
-                    // Sinkronkan localStorage dengan data terbaru dari Sheet
-                    localStorage.setItem('weddingWishes', JSON.stringify(data.wishes));
+                if (data.success && Array.isArray(data.wishes)) {
+
+                    displayWishes(data.wishes);
+
+                    localStorage.setItem(
+                        "weddingWishes",
+                        JSON.stringify(data.wishes)
+                    );
+
                 } else {
-                    // Jika Sheet kosong/error, gunakan localStorage
+
                     loadWishesFromLocal();
+
                 }
+
             } catch (error) {
-                console.error('Error loading wishes:', error);
+
+                console.error("Error loading wishes:", error);
+
                 loadWishesFromLocal();
+
             }
+
         }
 
         // Load from localStorage (Fallback Only)
         function loadWishesFromLocal() {
-            const wishesList = document.getElementById('wishesList');
+            // const wishesList = document.getElementById('wishesList');
             let wishes = JSON.parse(localStorage.getItem('weddingWishes') || '[]');
 
             if (wishes.length === 0) {
@@ -2774,7 +2767,7 @@
 
         // Display wishes
         function displayWishes(wishes) {
-            const wishesList = document.getElementById('wishesList');
+            // const wishesList = document.getElementById('wishesList');
 
             wishesList.innerHTML = wishes.map(wish => {
 
