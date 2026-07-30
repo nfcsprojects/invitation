@@ -1146,7 +1146,7 @@
 
         .gift-card-1 {
             /* background: var(--primary); */
-            background: url('https://ik.imagekit.io/uaztkqlnz/Wedding/card-nfcs.jpg') center / cover no-repeat;
+            background: url('C:\\Users\\HP\\Downloads\\card-mandiri.jpg') center / cover no-repeat;
             border-radius: var(--radius);
             padding: 36px 28px;
             text-align: center;
@@ -1173,7 +1173,7 @@
         }
 
         .gift-card-2 {
-            background: url('https://ik.imagekit.io/uaztkqlnz/Wedding/card-as.jpg') center / cover no-repeat;
+            background: url('C:\\Users\\HP\\Downloads\\card-bca.jpg') center / cover no-repeat;
             border-radius: var(--radius);
             padding: 36px 28px;
             text-align: center;
@@ -2256,7 +2256,7 @@
                             <!-- <p class="gift-bank">Bank BCA</p>
                             <p class="gift-number">0987654321</p>
                             <p class="gift-name">a.n. Anang Syaifulloh</p> -->
-                            <button class="btn-copy" onclick="copyToClipboard('0987654321', this)">
+                            <button class="btn-copy" onclick="copyToClipboard('3151342050', this)">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <rect x="9" y="9" width="13" height="13" rx="2" />
@@ -2411,7 +2411,7 @@
            GOOGLE SHEETS CONFIGURATION
            GANTI URL DI BAWAH INI DENGAN URL WEB APP ANDA
         ============================================ */
-        const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+        const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwKxj-DiXlp-aFDfXvD-5UvEpOUVZ1ArBNkWN6l_cwEJ1bVPAIQkQpChvUVJUaStCRZnA/exec';
 
         // Ganti dengan URL Google Sheet Anda setelah deploy
         // Contoh: 'https://script.google.com/macros/s/AKfycbx.../exec'
@@ -2625,8 +2625,8 @@
         }
 
         /* ============================================
-           GOOGLE SHEETS INTEGRATION
-        ============================================ */
+   GOOGLE SHEETS INTEGRATION - FIXED VERSION
+============================================ */
 
         // Submit RSVP to Google Sheets
         async function submitRSVP(e) {
@@ -2658,28 +2658,25 @@
             };
 
             try {
-                // Send to Google Sheets
-                const response = await fetch(GOOGLE_SHEET_URL, {
+                // Kirim ke Google Sheets
+                await fetch(GOOGLE_SHEET_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    mode: 'no-cors', // Wajib untuk POST ke Apps Script
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
 
-                // Also save to localStorage as backup
+                // Simpan ke localStorage sebagai backup & instant display
                 saveToLocalStorage(formData);
 
                 showToast('Konfirmasi berhasil dikirim!', 'success');
                 document.getElementById('rsvpForm').reset();
 
-                // Reload wishes
-                loadWishesFromSheet();
+                // Reload wishes dari Sheet (bukan local)
+                await loadWishesFromSheet();
 
             } catch (error) {
                 console.error('Error:', error);
-                // Save to localStorage if Google Sheets fails
                 saveToLocalStorage(formData);
                 showToast('Data tersimpan (offline mode)', 'success');
             } finally {
@@ -2692,49 +2689,64 @@
         // Save to localStorage as backup
         function saveToLocalStorage(data) {
             let wishes = JSON.parse(localStorage.getItem('weddingWishes') || '[]');
-            wishes.unshift({
-                name: data.name,
-                attend: data.attend,
-                message: data.message,
-                time: new Date().toLocaleString('id-ID', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                })
-            });
-            localStorage.setItem('weddingWishes', JSON.stringify(wishes));
+
+            // Cek duplikasi berdasarkan nama + pesan agar tidak double saat offline
+            const isDuplicate = wishes.some(w => w.name === data.name && w.message === data.message);
+
+            if (!isDuplicate) {
+                wishes.unshift({
+                    name: data.name,
+                    attend: data.attend,
+                    message: data.message,
+                    time: new Date().toLocaleString('id-ID', {
+                        day: 'numeric', month: 'short', year: 'numeric',
+                        hour: '2-digit', minute: '2-digit'
+                    })
+                });
+                localStorage.setItem('weddingWishes', JSON.stringify(wishes));
+            }
         }
 
-        // Load wishes from Google Sheets
+        // Load wishes from Google Sheets WITH CACHE BUSTING
         async function loadWishesFromSheet() {
             const wishesList = document.getElementById('wishesList');
 
+            // Tambahkan timestamp unik agar browser tidak mengambil data dari cache
+            const cacheBuster = new Date().getTime();
+
             try {
-                const response = await fetch(`${GOOGLE_SHEET_URL}?action=get`);
+                const response = await fetch(`${GOOGLE_SHEET_URL}?action=get&cb=${cacheBuster}`);
+
+                // Validasi apakah response benar-benar JSON
+                const contentType = response.headers.get("content-type");
+                if (!contentType || !contentType.includes("application/json")) {
+                    throw new Error("Response bukan JSON valid");
+                }
+
                 const data = await response.json();
 
-                if (data.success && data.wishes && data.wishes.length > 0) {
+                // Pastikan data memiliki struktur yang benar DAN tidak kosong
+                if (data.success && Array.isArray(data.wishes) && data.wishes.length > 0) {
                     displayWishes(data.wishes);
+
+                    // Sinkronkan localStorage dengan data terbaru dari Sheet
+                    localStorage.setItem('weddingWishes', JSON.stringify(data.wishes));
                 } else {
-                    // Fallback to localStorage
+                    // Jika Sheet kosong/error, gunakan localStorage
                     loadWishesFromLocal();
                 }
             } catch (error) {
                 console.error('Error loading wishes:', error);
-                // Fallback to localStorage
                 loadWishesFromLocal();
             }
         }
 
-        // Load from localStorage
+        // Load from localStorage (Fallback Only)
         function loadWishesFromLocal() {
             const wishesList = document.getElementById('wishesList');
             let wishes = JSON.parse(localStorage.getItem('weddingWishes') || '[]');
 
             if (wishes.length === 0) {
-                // Default wishes
                 wishes = [
                     {
                         name: 'Budi Santoso',
@@ -2750,26 +2762,24 @@
                     }
                 ];
             }
-
             displayWishes(wishes);
         }
 
         // Display wishes
         function displayWishes(wishes) {
             const wishesList = document.getElementById('wishesList');
-
             wishesList.innerHTML = wishes.map(wish => `
-                <div class="wish-card">
-                    <div class="wish-header">
-                        <div class="wish-avatar">${wish.name.charAt(0).toUpperCase()}</div>
-                        <div>
-                            <p class="wish-name">${escapeHtml(wish.name)}</p>
-                            <p class="wish-time">${wish.time || 'Baru saja'}</p>
-                        </div>
-                    </div>
-                    <p class="wish-message">${escapeHtml(wish.message)}</p>
+        <div class="wish-card">
+            <div class="wish-header">
+                <div class="wish-avatar">${escapeHtml(wish.name.charAt(0).toUpperCase())}</div>
+                <div>
+                    <p class="wish-name">${escapeHtml(wish.name)}</p>
+                    <p class="wish-time">${wish.time || 'Baru saja'}</p>
                 </div>
-            `).join('');
+            </div>
+            <p class="wish-message">${escapeHtml(wish.message)}</p>
+        </div>
+    `).join('');
         }
 
         function escapeHtml(text) {
