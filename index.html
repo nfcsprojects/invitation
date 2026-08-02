@@ -11,7 +11,7 @@
     <meta property="og:image:width" content="945" />
     <meta property="og:image:height" content="945" />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta name="author" content="nfcs.projects@gmail.com" />
+    <meta name="author" content="nfcs.entertainment@gmail.com" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,12 +43,10 @@
             --nav-height: 70px;
             --font-script: 'Great Vibes', cursive;
         }
-
-        /* Class khusus untuk nama panggilan agar konsisten */
+        
         .brittany {
             font-family: var(--font-script);
             color: var(--rose-gold);
-            /* Menggunakan warna rose gold dari palet baru */
         }
 
         *,
@@ -72,7 +70,6 @@
             line-height: 1.7;
             font-weight: 300;
             overflow-x: hidden;
-            /* padding-bottom: calc(var(--nav-height)); */
         }
 
         img {
@@ -611,19 +608,7 @@
         .couple {
             position: relative;
             overflow: hidden;
-            /* Mencegah gambar meluber jika radius berbeda */
         }
-
-        /* .couple::before {
-            content: '';
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=400&q=50') center/cover no-repeat;
-            opacity: 0.4;
-            border-radius: 50%;
-            z-index: -1;
-        } */
 
         .couple-grid {
             display: grid;
@@ -1231,11 +1216,8 @@
             cursor: pointer;
             transition: var(--transition);
             font-family: var(--font-body);
-
-            /* KUNCI: Mendorong tombol ke posisi paling bawah */
             margin-top: auto;
             align-self: center;
-            /* Tetap di tengah secara horizontal */
         }
 
         .btn-copy:hover {
@@ -1344,28 +1326,20 @@
             position: relative;
             overflow: hidden;
             min-height: 700px;
-            /* contoh */
         }
 
         .wishes::before {
             content: '';
             position: absolute;
             inset: 0;
-            /* shorthand untuk top/right/bottom/left = 0 */
-
             background: url('https://ik.imagekit.io/uaztkqlnz/Wedding/background-2.jpg') no-repeat center 60% / cover;
-
             opacity: 0.4;
-            /* ← Atur opacity DI SINI (0.0 - 1.0) */
             z-index: 0;
-            /* Di belakang konten */
         }
 
-        /* Konten harus di atas background */
         .wishes>* {
             position: relative;
             z-index: 1;
-            /* Di depan background */
         }
 
         .wishes-list {
@@ -1510,14 +1484,10 @@
    ========================================================= */
         footer {
             position: relative;
-            /* Ganti URL ini dengan foto prewedding/couple Anda */
             background-image: url('https://ik.imagekit.io/uaztkqlnz/Wedding/IMG_5574-resized.JPG?updatedAt=1784997497050');
             background-size: cover;
             background-position: center top;
-            /* KUNCI: Gambar dimulai dari atas */
             background-repeat: no-repeat;
-
-            /* Tinggi diperbesar agar foto tidak tertimpa teks */
             min-height: 80vh;
             height: auto;
             padding: clamp(20px, 6vw, 60px) 20px clamp(20px, 8vw, 100px);
@@ -1539,13 +1509,9 @@
             inset: 0;
             background: linear-gradient(to bottom,
                     rgba(247, 241, 228, 0) 0%,
-                    /* Transparan total di atas agar foto utuh */
                     rgba(184, 169, 201, 0.3) 30%,
-                    /* Mauve tipis sebagai transisi */
                     rgba(14, 36, 56, 0.85) 70%,
-                    /* Navy mulai menggelap */
                     rgba(14, 36, 56, 0.98) 100%
-                    /* Navy pekat di bawah untuk keterbacaan teks */
                 );
             z-index: 1;
         }
@@ -2231,9 +2197,6 @@
                     </button>
                     <div class="gift-cards" style="display: none;" id="gift-cards">
                         <div class="gift-card-1 reveal delay-2">
-                            <!-- <p class="gift-bank">Bank Mandiri</p>
-                            <p class="gift-number">1234567890</p>
-                            <p class="gift-name">a.n. Ni`mah Firsta Cahya Susilo</p> -->
                             <button class="btn-copy" onclick="copyToClipboard('1440017665719', this)">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
@@ -2244,9 +2207,6 @@
                             </button>
                         </div>
                         <div class="gift-card-2 reveal delay-3">
-                            <!-- <p class="gift-bank">Bank BCA</p>
-                            <p class="gift-number">0987654321</p>
-                            <p class="gift-name">a.n. Anang Syaifulloh</p> -->
                             <button class="btn-copy" onclick="copyToClipboard('3151342050', this)">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
@@ -2322,22 +2282,6 @@
 
                 <div class="copyright">© 2026 NFCS Projects</div>
             </footer>
-            <!-- <footer class="footer">
-            <div class="container">
-                <h2 class="footer-names reveal">Ima & Anang</h2>
-                <p class="footer-thanks reveal delay-1">
-                    Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i berkenan hadir
-                    serta memberikan doa restu kepada kami.
-                    <br><br>
-                    Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.
-                </p>
-                <div class="divider reveal delay-2">
-                    <div class="divider-icon"></div>
-                </div>
-                <p class="footer-credit reveal delay-3">Made with ♥ — 2026</p>
-            </div>
-        </footer> -->
-
     </main>
 
     <!-- ============================================
@@ -2397,15 +2341,7 @@
          JAVASCRIPT
     ============================================ -->
     <script>
-        /* ============================================
-           GOOGLE SHEETS CONFIGURATION
-           GANTI URL DI BAWAH INI DENGAN URL WEB APP ANDA
-        ============================================ */
         const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwrL7Ya3OvWGNgXVemSM1IvRAjBiPZVlia0W1pTlAoOmdKOHjc8wwVgRMEQwCGVxHhv/exec';
-
-        // Ganti dengan URL Google Sheet Anda setelah deploy
-        // Contoh: 'https://script.google.com/macros/s/AKfycbx.../exec'
-
         /* ============================================
            PAGE LOADER
         ============================================ */
@@ -2648,23 +2584,12 @@
             formData.append("message", message);
 
             try {
-                // Kirim ke Google Sheets
-                // await fetch(GOOGLE_SHEET_URL, {
-                //     method: 'POST',
-                //     mode: 'no-cors', // Wajib untuk POST ke Apps Script
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(formData)
-                // });
                 console.log(formData);
                 await fetch(GOOGLE_SHEET_URL, {
                     method: "POST",
                     mode: "no-cors",
                     body: formData
                 });
-
-                // console.log(await response.text());
-
-                // Simpan ke localStorage sebagai backup & instant display
                 saveToLocalStorage(formData);
 
                 showToast('Konfirmasi berhasil dikirim!', 'success');
@@ -2687,10 +2612,7 @@
         // Save to localStorage as backup
         function saveToLocalStorage(data) {
             let wishes = JSON.parse(localStorage.getItem('weddingWishes') || '[]');
-
-            // Cek duplikasi berdasarkan nama + pesan agar tidak double saat offline
             const isDuplicate = wishes.some(w => w.name === data.name && w.message === data.message);
-
             if (!isDuplicate) {
                 wishes.unshift({
                     name: data.name,
@@ -2707,38 +2629,23 @@
 
         // Load wishes from Google Sheets WITH CACHE BUSTING
         async function loadWishesFromSheet() {
-
             const cacheBuster = Date.now();
-
             try {
-
                 const response = await fetch(`${GOOGLE_SHEET_URL}?cb=${cacheBuster}`);
-
                 const data = await response.json();
-
                 console.log("Response:", data);
-
                 if (data.success && Array.isArray(data.wishes)) {
-
                     displayWishes(data.wishes);
-
                     localStorage.setItem(
                         "weddingWishes",
                         JSON.stringify(data.wishes)
                     );
-
                 } else {
-
                     loadWishesFromLocal();
-
                 }
-
             } catch (error) {
-
                 console.error("Error loading wishes:", error);
-
                 loadWishesFromLocal();
-
             }
 
         }
@@ -2845,7 +2752,6 @@
                 description: 'Kami mengundang Anda untuk hadir dalam acara pernikahan kami. Terima kasih atas doa dan restunya.',
 
                 // Format: YYYYMMDDTHHMMSS (WIB = UTC+7)
-                // Sabtu, 25 Oktober 2026 | 10:00 - Selesai (asumsi selesai 13:00)
                 start: '20260808T110000',
                 end: '20260808T130000'
             };
@@ -2867,7 +2773,6 @@
             }
         }
 
-        // Jalankan saat halaman dimuat
         document.addEventListener('DOMContentLoaded', generateGCalLink);
 
         // SCRIPT TOOGLE WEDDING GIFTS
@@ -2886,43 +2791,17 @@
         });
 
         // Copy to clipboard function
-        function copyToClipboard(elementId, btnElement) {
-            const text = document.getElementById(elementId).textContent;
-
+        function copyToClipboard(text, btnElement) {
             navigator.clipboard.writeText(text).then(function () {
-                // Change button appearance temporarily
+
                 const originalHTML = btnElement.innerHTML;
                 btnElement.classList.add('copied');
                 btnElement.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="20 6 9 17 4 12"></polyline>
-      </svg>
-      <span class="copy-text">Copied!</span>
-    `;
-
-                // Reset after 2 seconds
-                setTimeout(function () {
-                    btnElement.classList.remove('copied');
-                    btnElement.innerHTML = originalHTML;
-                }, 2000);
-            }).catch(function (err) {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-
-                // Show copied state
-                const originalHTML = btnElement.innerHTML;
-                btnElement.classList.add('copied');
-                btnElement.innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="20 6 9 17 4 12"></polyline>
-      </svg>
-      <span class="copy-text">Copied!</span>
-    `;
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span class="copy-text">Copied!</span>
+        `;
 
                 setTimeout(function () {
                     btnElement.classList.remove('copied');
@@ -2931,74 +2810,6 @@
             });
         }
     </script>
-
-    <!-- ============================================
-         CARA SETUP GOOGLE SHEETS:
-         
-         1. Buat Google Sheet baru
-         2. Buat kolom di baris pertama:
-            - Timestamp
-            - Name
-            - Attend
-            - Message
-         
-         3. Buka Extensions > Apps Script
-         
-         4. Paste kode berikut:
-         
-         ```javascript
-         const SHEET_NAME = 'Sheet1';
-         
-         function doPost(e) {
-           const data = JSON.parse(e.postData.contents);
-           const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-           
-           if (data.action === 'submit') {
-             sheet.appendRow([
-               new Date(),
-               data.name,
-               data.attend,
-               data.message
-             ]);
-             
-             return ContentService.createTextOutput(JSON.stringify({
-               success: true,
-               message: 'Data saved'
-             })).setMimeType(ContentService.MimeType.JSON);
-           }
-         }
-         
-         function doGet(e) {
-           const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME);
-           const data = sheet.getDataRange().getValues();
-           const headers = data[0];
-           const rows = data.slice(1);
-           
-           const wishes = rows.map(row => {
-             return {
-               timestamp: row[0],
-               name: row[1],
-               attend: row[2],
-               message: row[3],
-               time: new Date(row[0]).toLocaleString('id-ID')
-             };
-           }).reverse();
-           
-           return ContentService.createTextOutput(JSON.stringify({
-             success: true,
-             wishes: wishes
-           })).setMimeType(ContentService.MimeType.JSON);
-         }
-         ```
-         
-         5. Deploy > New Deployment
-         6. Pilih type: Web App
-         7. Execute as: Me
-         8. Who has access: Anyone
-         9. Klik Deploy
-         10. Copy URL dan paste di variabel GOOGLE_SHEET_URL di atas
-         
-    ============================================ -->
 
 </body>
 
